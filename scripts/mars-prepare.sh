@@ -84,11 +84,11 @@ mlog " "
 d=$(date)
 
 mlog ">>> Starting mars-prepare workflow on ${d} ..."
-mlog ">>> Checking for mars.sif ..."
+mlog ">>> Checking for mars_latest.sif ..."
 if [ -z "$MARSSIF" ] ; then
-    sif="${pwd}/mars.sif"
+    sif="${pwd}/mars_latest.sif"
 else
-    sif="${MARSSIF%/}/mars.sif"
+    sif="${MARSSIF%/}/mars_latest.sif"
 fi
 sif=$(realpath $sif);
 
