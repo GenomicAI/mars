@@ -1,4 +1,3 @@
-```
 Bootstrap: docker
 From: ubuntu:22.04
 
@@ -31,7 +30,8 @@ From: ubuntu:22.04
 	python-is-python3 \
 	libvcflib-dev \
 	cmake \
-	libseqlib-dev
+	libseqlib-dev \
+	libncurses5-dev libncursesw5-dev
 
 	#libcurl4-openssl-dev \
 
@@ -46,17 +46,40 @@ From: ubuntu:22.04
     	ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
     	dpkg-reconfigure -f noninteractive tzdata 
 
-	# Install samtools, bcftools and wgsim
-    	apt-get install -y samtools bcftools
-
-	# Install ngsngs
+	# Install htslib, tabix, bgzip, samtools, bcftools and wgsim
 	cd
-	git clone https://github.com/RAHenriksen/NGSNGS.git
 	git clone https://github.com/samtools/htslib.git
 	cd htslib
 	git submodule update --init --recursive
 	make
-	cd ../NGSNGS; make HTSSRC=../htslib; cp ngsngs /usr/local/bin;
+	make install
+	cd
+	wget https://github.com/samtools/samtools/archive/refs/tags/1.21.zip
+	unzip 1.21.zip
+	cd samtools-1.21
+	make HTSSRC=../htslib;
+	make install
+
+	cd
+	rm -rf samtools-1.21
+	rm 1.21.zip
+	wget https://github.com/samtools/bcftools/archive/refs/tags/1.21.zip
+	unzip 1.21.zip
+	cd bcftools-1.21
+	make HTSSRC=../htslib;
+	make install
+	cd 
+	rm 1.21.zip
+	rm -rf bcftools-1.21
+
+	# Install ngsngs
+	cd
+	git clone https://github.com/RAHenriksen/NGSNGS.git
+	#git clone https://github.com/samtools/htslib.git
+	#cd htslib
+	#git submodule update --init --recursive
+	#make
+	cd NGSNGS; make HTSSRC=../htslib; cp ngsngs /usr/local/bin;
 	cd
 	rm -rf NGSNGS htslib 
 
@@ -214,4 +237,3 @@ From: ubuntu:22.04
 
 %runscript
     echo "Singularity container with bioinformatics tools installed."
-```
