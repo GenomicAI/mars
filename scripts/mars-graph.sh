@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Author : Shanika Amarasoma, Nuzla Ismail
-# Date : October 0225, 2024
+# Date : October 25, 2024
 # Description : Construct a graph using the reference fasta file and givem samples. 
 # Usage : mars-graph.sh -f <reference fasta,fa file> -v <VCF file> -s <comma seperated sample names> -r <region>
 # ./mars-graph.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00097,HG00099,HG00100,HG00101,HG00102

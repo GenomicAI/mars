@@ -5,7 +5,6 @@
 # Usage : mars-call.sh -f <reference fasta,fa file> -g <reference graph gbz file> -m <bam or gam file> -t <no of threads> -c <variant caller>
 # ./mars-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
 # ./mars-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
-# ./mars-call.sh -f NC_000020.11.fa -m HG00096.bam -c d -i ~/singularity/deepvariant_1.5.0.sif -t 48
 
 SHORT=f:,g:,c:,i:,m:,t:,w:,h
 LONG=file:,gbz:,caller:,image:,map:,threads:,write:,help
