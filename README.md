@@ -31,25 +31,25 @@ Copy all "mars' scripts from this [git](https://github.com/GenomicAI/mars/tree/m
 
 ## Available tools in "mars"
 |#|Tool|version|Description|Execute|
-|-|----|-------|-----------|-------|
-|1| [htslib, tabix, bgzip](https://github.com/samtools/htslib) |(Tested with htslib 1.17/18)|d||x|
-|2| [SAMtools](https://github.com/samtools/samtools) |(Tested with Version: 1.17/18 (using htslib 1.17/18))|d||x|
-|3| [BCFtools](https://github.com/samtools/bcftools) |(Tested with Version: 1.17/18 (using htslib 1.17/18))|d||x|
-|4| [wgsim](https://github.com/lh3/wgsim) |(Tested with Version: 1.17/18)|d||x|
-|5| [ngsngs](https://github.com/RAHenriksen/NGSNGS) |(Tested with current master branch 2023-Oct-18)|d||x|
-|6| [bwa](https://github.com/lh3/bwa) |(Tested with version 0.7.17-r1198-dirty)|d||x|
-|7| [bowtie2](https://github.com/BenLangmead/bowtie2)| (Tested with version 2.5.1)|d||x|
-|8| [freebayes](https://github.com/freebayes/freebayes) |(Tested with version 1.3.7, master branch)|d||x|
-|9| [vg](https://github.com/vgteam/vg) |(Tested with version v1.51.0 "Quellenhof")|d||x|
-|10| [GATK](https://github.com/broadinstitute/gatk) |(Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))|d||x|
-|11| [pbsim](https://github.com/yukiteruono/pbsim3)|v|d||x|
-|12| minimap2|v|d||x|
-|13| wfmash|v|d||x|
-|14| seqwish|v|d||x|
-|15| smoothxg|v|d||x|
-|16| gfaffix|v|d||x|
-|17| odgi|v|d||x|
-|18| badread|v|d||x|
-|19| delly|v|d||x|
-|20| [diamond](https://github.com/bbuchfink/diamond)|v|d||x|
-|21| nextflow||v|d||x|
+|-:|----|------:|-----------|-------|
+|1| [htslib, tabix, bgzip](https://github.com/samtools/htslib) |1.21|C library for high-throughput sequencing data formats|`./mars-run.sh tabix -h`, `./mars-run.sh bgzip -h`|
+|2| [SAMtools](https://github.com/samtools/samtools) |1.21|Tools (written in C using htslib) for manipulating next-generation sequencing data|`./mars-run.sh samtools version`|
+|3| [BCFtools](https://github.com/samtools/bcftools) |1.21|Utilities for variant calling and manipulating VCFs and BCFs.|`./mars-run.sh bcftools version`|
+|4| [wgsim](https://github.com/lh3/wgsim) |1.21|Short read simulator|`./mars-run.sh wgsim -h`|
+|5| [ngsngs](https://github.com/RAHenriksen/NGSNGS) |v0.9.2.2|Next Generation Simulator for Next Generation Sequencing Data|`./mars-run.sh ngsngs -v`|
+|6| [bwa](https://github.com/lh3/bwa) |0.7.18-r1243-dirty|Burrow-Wheeler Aligner for short-read alignment|`./mars-run.sh bwa`|
+|7| [bowtie2](https://github.com/BenLangmead/bowtie2)|2.5.4|A fast and sensitive gapped read aligner|`./mars-run.sh bowtie2 --version`|
+|8| [freebayes](https://github.com/freebayes/freebayes) |v1.3.6|Bayesian haplotype-based genetic polymorphism discovery and genotyping.|`./mars-run.sh freebayes -h`|
+|9| [vg](https://github.com/vgteam/vg) |v1.60.0 "Annicco"|Tools for working with genome variation graphs|`./mars-run.sh vg help`|
+|10| [GATK](https://github.com/broadinstitute/gatk) |(Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))|d|x|
+|11| [pbsim](https://github.com/yukiteruono/pbsim3)|v|d|x|
+|12| minimap2|v|d|x|
+|13| wfmash|v|d|x|
+|14| seqwish|v|d|x|
+|15| smoothxg|v|d|x|
+|16| gfaffix|v|d|x|
+|17| odgi|v|d|x|
+|18| badread|v|d|x|
+|19| delly|v|d|x|
+|20| [diamond](https://github.com/bbuchfink/diamond)|v|d|x|
+|21| nextflow|v|d|x|
