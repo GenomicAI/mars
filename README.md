@@ -30,8 +30,8 @@ Copy all "mars' scripts from this [git](https://github.com/GenomicAI/mars/tree/m
 ```
 
 ## Available tools in "mars"
-|#|Tool|version|Description|Execute|
-|-:|----|------:|-----------|-------|
+|#|Tool|Version|Description|Execute|
+|-:|----|-------|-----------|-------|
 |1| [htslib, tabix, bgzip](https://github.com/samtools/htslib) |1.21|C library for high-throughput sequencing data formats|`./mars-run.sh tabix -h`, `./mars-run.sh bgzip -h`|
 |2| [SAMtools](https://github.com/samtools/samtools) |1.21|Tools (written in C using htslib) for manipulating next-generation sequencing data|`./mars-run.sh samtools version`|
 |3| [BCFtools](https://github.com/samtools/bcftools) |1.21|Utilities for variant calling and manipulating VCFs and BCFs.|`./mars-run.sh bcftools version`|
@@ -41,15 +41,15 @@ Copy all "mars' scripts from this [git](https://github.com/GenomicAI/mars/tree/m
 |7| [bowtie2](https://github.com/BenLangmead/bowtie2)|2.5.4|A fast and sensitive gapped read aligner|`./mars-run.sh bowtie2 --version`|
 |8| [freebayes](https://github.com/freebayes/freebayes) |v1.3.6|Bayesian haplotype-based genetic polymorphism discovery and genotyping.|`./mars-run.sh freebayes -h`|
 |9| [vg](https://github.com/vgteam/vg) |v1.60.0 "Annicco"|Tools for working with genome variation graphs|`./mars-run.sh vg help`|
-|10| [GATK](https://github.com/broadinstitute/gatk) |(Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))|d|x|
-|11| [pbsim](https://github.com/yukiteruono/pbsim3)|v|d|x|
-|12| minimap2|v|d|x|
-|13| wfmash|v|d|x|
-|14| seqwish|v|d|x|
-|15| smoothxg|v|d|x|
-|16| gfaffix|v|d|x|
-|17| odgi|v|d|x|
-|18| badread|v|d|x|
-|19| delly|v|d|x|
-|20| [diamond](https://github.com/bbuchfink/diamond)|v|d|x|
-|21| nextflow|v|d|x|
+|10| [GATK](https://github.com/broadinstitute/gatk) |4.6.0.0|A wide variety of tools with a primary focus on variant discovery and genotypin|`./mars-run.sh gatk --list`|
+|11| [pbsim](https://github.com/yukiteruono/pbsim3)|v3.0.4|A simulator for all types of PacBio and ONT long reads|`./mars-run.sh pbsim`|
+|12| [minimap2](https://github.com/lh3/minimap2/)|2.28-r1209|A versatile pairwise aligner for genomic and spliced nucleotide sequences|`./mars-run.sh minimap2 --version`|
+|13| [wfmash](https://github.com/waveygang/wfmash/)|v0.21.0|Base-accurate DNA sequence alignments using WFA and mashmap3|`./mars-run.sh wfmash -h`|
+|14| [seqwish](https://github.com/ekg/seqwish)|v0.7.11-0-g0eb6468|Alignment to variation graph inducer|`./mars-run.sh seqwish -v`|
+|15| [smoothxg](https://github.com/pangenome/smoothxg)|v0.8.0-0-g66b17ae|Linearize and simplify variation graphs using blocked partial order alignment|`./mars-run.sh smoothxg -v`|
+|16| [gfaffix](https://github.com/marschall-lab/GFAffix)|0.1.5b|GFAffix identifies walk-preserving shared affixes in variation graphs and collapses them into a non-redundant graph structure|`./mars-run.sh gfaffix -V`|
+|17| [odgi](https://github.com/pangenome/odgi)|v0.9.0-3-g237fc1b0|Optimized Dynamic Genome/Graph Implementation: understanding pangenome graphs|`./mars-run.sh odgi`|
+|18| [badread](https://github.com/rrwick/Badread)|v0.4.1|A long read simulator that can imitate many types of read problems|`./mars-run.sh badread --version`|
+|19| [delly](https://github.com/dellytools/delly)|1.2.9|Structural variant discovery by integrated paired-end and split-read analysis|`./mars-run.sh delly`|
+|20| [diamond](https://github.com/bbuchfink/diamond)|v2.1.9.163|A sequence aligner for protein and translated DNA searches|`./mars-run.sh diamond help`|
+|21| [nextflow](https://github.com/nextflow-io/nextflow)|24.09.2-edge|A workflow system for creating scalable, portable, and reproducible workflows|./mars-run.sh nextflow info|
