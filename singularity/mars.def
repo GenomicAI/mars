@@ -8,21 +8,21 @@ From: ubuntu:22.04
 
 %post
 	# Set environment variables to avoid tzdata prompts
-    export DEBIAN_FRONTEND=noninteractive
-    export TZ=Etc/UTC  # Or your desired timezone
+    	export DEBIAN_FRONTEND=noninteractive
+    	export TZ=Etc/UTC  # Or your desired timezone
 
 	# Update and install dependencies
-    apt-get update && apt-get install -y \
-    build-essential \
+    	apt-get update && apt-get install -y \
+    	build-essential \
 	tzdata \
 	git \
 	wget \
-    curl \
+    	curl \
 	python3 \
 	python3-dev \
 	python3-distutils \
 	python3-pip \
-    libz-dev \
+    	libz-dev \
 	liblzma-dev \
 	libbz2-dev \
 	default-jre \
