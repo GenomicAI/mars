@@ -13,7 +13,7 @@ help_text="Usage: mars-reads.sh [options]\n"
 help_text+="-f | --file STR .fasta or .fa sequence file to read from\n"
 help_text+="-l | --length INT read length (Default 100)\n"
 help_text+="-d | --depth INT read coverage depth (Default 30)\n"
-help_text+="-s | --sim STR read simulator. 'n' for NGSNGS, 'w' for wgsim,'p' pbsim and 'b' for badread (Default 'n')\n"
+help_text+="-s | --sim STR read simulator. 'n' for 'NGSNGS', 'w' for 'wgsim','p' 'pbsim' and 'b' for 'badread' (Default 'n')\n"
 help_text+="-w | --write STR write logs to this file (optional, default 'mars.log')\n"
 help_text+="-h | --help Display this help message\n"
 

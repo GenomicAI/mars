@@ -7,12 +7,12 @@
 
 
 SHORT=g:,v:,f:,w:,h
-LONG=gtvcf:,vfvcf:,file:,write:,help
+LONG=gvcf:,mvcf:,file:,write:,help
 OPTS=$(getopt -a -n mars-compare.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: mars-compare.sh [options]\n"
-help_text+="-g | --gtvcf STR ground truth vcf file file\n"
-help_text+="-v | --vfvcf STR marser call generated vcf file.\n"
+help_text+="-g | --gvcf STR ground truth vcf file\n"
+help_text+="-v | --mvcf STR mars-call generated vcf file.\n"
 help_text+="-f | --file STR .fasta or .fa sequence file of the sample\n"
 help_text+="-w | --write STR write logs to this file (optional, default 'mars.log')\n"
 help_text+="-h | --help Display this help message\n"
@@ -21,12 +21,12 @@ eval set -- "$OPTS"
 while :
 do
   case "$1" in
-	-g | --gtvcf )
-      gtvcf="$2"
+	-g | --gvcf )
+      gvcf="$2"
       shift 2
       ;;
-	-v | --vfvcf )
-      vfvcf="$2"
+	-v | --mvcf )
+      mvcf="$2"
       shift 2
       ;;
 	-f | --file )
@@ -93,23 +93,23 @@ if [ -z "$sif" ] ; then
 fi
 mlog ">>> Checking for ground truth vcf file ..."
 
-if [ -z "$gtvcf" ] || [ ! -f "$gtvcf" ]; then
-    mlog "The ground truth vcf file ${gtvcf} does not exists or not specified by -g|--gtvcf <filename> !"
+if [ -z "$gvcf" ] || [ ! -f "$gvcf" ]; then
+    mlog "The ground truth vcf file ${gvcf} does not exists or not specified by -g|--gvcf <filename> !"
     echo -e $help_text
     exit 1;
 fi
 
-gtvcf=$(realpath $gtvcf)
+gvcf=$(realpath $gvcf)
 
 mlog ">>> Checking for marser vcf file ..."
 
-if [ -z "$vfvcf" ] || [ ! -f "$vfvcf" ]; then
-    mlog "The marser vcf file ${vfvcf} does not exists or not specified by -v|--vfvcf <filename> !"
+if [ -z "$mvcf" ] || [ ! -f "$mvcf" ]; then
+    mlog "The mars-call generated vcf file ${mvcf} does not exists or not specified by -v|--mvcf <filename> !"
     echo -e $help_text
     exit 1;
 fi
 
-vfvcf=$(realpath $vfvcf)
+mvcf=$(realpath $mvcf)
 
 if [ -z "$file" ] || [ ! -f "$file" ]; then
     mlog "The fasta file ${file} does not exists or not specified by -f|--file <filename> !"
@@ -131,15 +131,15 @@ mlog "Length is ${sample_len}"
 
 mlog ">>> Finding ground truth SNPs and INDELs from ${vcf} ...."
 
-snp=$(singularity exec -e -B ${pwd} $sif bcftools stats "${gtvcf}" | grep "number of SNPs:" | cut -f 4)
-indel=$(singularity exec -e -B ${pwd} $sif bcftools stats "${gtvcf}" | grep "number of indels:" | cut -f 4)
+snp=$(singularity exec -e -B ${pwd} $sif bcftools stats "${gvcf}" | grep "number of SNPs:" | cut -f 4)
+indel=$(singularity exec -e -B ${pwd} $sif bcftools stats "${gvcf}" | grep "number of indels:" | cut -f 4)
 
 mlog ">>> Comparing the ground truth vcf and mars vcf using bcftools isec ..."
-singularity exec -e -B ${pwd} $sif bcftools isec -c none -p mars_compare "${gtvcf}" "${vfvcf}"
+singularity exec -e -B ${pwd} $sif bcftools isec -c none -p mars_compare "${gvcf}" "${mvcf}"
 
 mlog ">>> Generating stats";
-v_snp=$(singularity exec -e -B ${pwd} $sif bcftools stats "${vfvcf}" | grep "number of SNPs:" | cut -f 4)
-v_indel=$(singularity exec -e -B ${pwd} $sif bcftools stats "${vfvcf}" | grep "number of indels:" | cut -f 4)
+v_snp=$(singularity exec -e -B ${pwd} $sif bcftools stats "${mvcf}" | grep "number of SNPs:" | cut -f 4)
+v_indel=$(singularity exec -e -B ${pwd} $sif bcftools stats "${mvcf}" | grep "number of indels:" | cut -f 4)
 p_snp=$(singularity exec -e -B ${pwd} $sif bcftools stats mars_compare/0001.vcf | grep "number of SNPs:" | cut -f 4)
 p_indel=$(singularity exec -e -B ${pwd} $sif bcftools stats mars_compare/0001.vcf | grep "number of indels:" | cut -f 4)
 m_snp=$(singularity exec -e -B ${pwd} $sif bcftools stats mars_compare/0002.vcf | grep "number of SNPs:" | cut -f 4)
