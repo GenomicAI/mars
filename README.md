@@ -162,6 +162,31 @@ Usage: mars-prepare.sh [options]
 -w | --write STR write logs to this file (optional, default 'mars.log')
 -h | --help Display this help message
 ```
+
+#### `mars-pipe.sh`
+This utility will execte `mars-reads.sh`, `mars-map.sh` and `mars-call.sh` in a pipeline. 
+```
+./mars-pipe.sh -h
+Program : mars-pipe.sh
+Version : 1.0
+Usage: mars-pipe.sh [options]
+-r | --ref STR reference .fasta sequence file or reference .gbz graph file
+-f | --file STR .fasta file of the sample considered
+-v | --vcf STR Ground truth vcf file of the sample considered
+-l | --length INT read length (Default 100)
+-d | --depth INT read coverage depth (Default 30)
+-s | --sim STR read simulator. 'n' for NGSNGS, 'w' for wgsim,'p' pbsim and 'b' for badread (Default 'n')
+-m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', '2' for 'minimap2',
+ 'mp' for 'bwa mem -x pacbio', 'mo' for 'bwa mem -x ont2d' (For single ended reads only),
+ 's' for 'bwa sampe (Pared ended read), bwa samse (Single ended read)',
+ '2p' for 'minimap2 -ax map-pb', '2o' for 'minimap2 -ax map-ont', '2i' for 'minimap2 -ax map-iclr' (Single ended read only),
+ 'b' for 'bowtie2' and 'g' for 'vg giraffe'. (Default 'm')
+-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)
+-t | --threads INT number of threads to use (Default 'nproc')
+-w | --write STR write logs to this file (optional, default 'mars.log')
+-h | --help Display this help message
+```
+
 ------
 ## Example Using Genome assembly GRCh38.p14 Chromosome 20  
 ### Preparing Input files
