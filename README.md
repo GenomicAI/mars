@@ -175,7 +175,7 @@ Usage: mars-pipe.sh [options]
 -v | --vcf STR Ground truth vcf file of the sample considered
 -l | --length INT read length (Default 100)
 -d | --depth INT read coverage depth (Default 30)
--s | --sim STR read simulator. 'n' for NGSNGS, 'w' for wgsim,'p' pbsim and 'b' for badread (Default 'n')
+-s | --sim STR read simulator. 'n' for 'NGSNGS', 'w' for 'wgsim','p' 'pbsim' and 'b' for badread (Default 'n')
 -m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', '2' for 'minimap2',
  'mp' for 'bwa mem -x pacbio', 'mo' for 'bwa mem -x ont2d' (For single ended reads only),
  's' for 'bwa sampe (Pared ended read), bwa samse (Single ended read)',
