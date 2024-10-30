@@ -219,25 +219,25 @@ This command will produce the below report with all the stats.
 |:----------------------------------|-----------:|
 | Ground Truth SNPs | 1,886 |
 | Ground Truth INDELs | 271 |
-| Varfind SNPs | 1,996 |
-| varfind INDELs | 248 |
-| SNPs Private to mars vcf | 117 |
-| INDELs Private to mars vcf | 208 |
-| Exact Matched SNPs | 1,879 |
-| Exact Matched INDELs | 40 |
-| True Positive (TP) | 1,919 |
-| False Positive (FP) | 325 |
-| True Negative (TN) | 1,997,230 |
-| False Negative (FN) | 238 |
-| SNP Sensitivity | 99.6288% |
-| SNP Specificity | 99.9941% |
-| SNP F1 Score | 96.8057% |
-| INDEL Sensitivity | 14.7601% |
-| INDEL Specificity | 99.9895% |
-| INDEL F1 Score | 15.4142% |
-| Overall Sensitivity | 88.9661% |
-| Overall Specificity | 99.9837% |
-| Overall F1 Score | 87.2074% |
+| mars SNPs | 2,069 |
+| mars INDELs | 6 |
+| SNPs Private to mars vcf | 218 |
+| INDELs Private to mars vcf | 4 |
+| Exact Matched SNPs | 1,851 |
+| Exact Matched INDELs | 2 |
+| True Positive (TP) | 1,853 |
+| False Positive (FP) | 222 |
+| True Negative (TN) | 1,997,333 |
+| False Negative (FN) | 304 |
+| SNP Sensitivity | 98.1442% |
+| SNP Specificity | 99.9890% |
+| SNP F1 Score | 93.6030% |
+| INDEL Sensitivity | 0.7380% |
+| INDEL Specificity | 99.9997% |
+| INDEL F1 Score | 1.4440% |
+| Overall Sensitivity | 85.9063% |
+| Overall Specificity | 99.9888% |
+| Overall F1 Score | 87.5708% |
 
 ### 2. Executing the graph-based workflow (ngsngs -> vg giraffe -> vg call)
 
