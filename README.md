@@ -201,17 +201,17 @@ The next step is to map the reads to the reference sequence using the command `m
 ```
 This will produce a bam file called `HG00096.bam`. 
 
-Now we can do the variant calling using `varfind-call.sh`. 
+Now we can do the variant calling using `mars-call.sh`. 
 
 ```bash
 ./mars-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
 ```
-This step will create a VCF file called `HG00096.varfind.b.vcf.gz`. 
+This step will create a VCF file called `HG00096.mars.b.vcf.gz`. 
 
-The final step is to compare the 2 VCF files `HG00096.varfind.b.vcf.gz` and `HG00096.vcf.gz` using `mars-compare.sh`.
+The final step is to compare the 2 VCF files `HG00096.mars.b.vcf.gz` and `HG00096.vcf.gz` using `mars-compare.sh`.
 
 ```bash
-./mars-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.b.vcf.gz -f HG00096.fa
+./mars-compare.sh -g HG00096.vcf.gz -v HG00096.mars.b.vcf.gz -f HG00096.fa
 ```
 This command will produce the below report with all the stats. 
 
@@ -221,8 +221,8 @@ This command will produce the below report with all the stats.
 | Ground Truth INDELs | 271 |
 | Varfind SNPs | 1,996 |
 | varfind INDELs | 248 |
-| SNPs Private to varfind vcf | 117 |
-| INDELs Private to varfind vcf | 208 |
+| SNPs Private to mars vcf | 117 |
+| INDELs Private to mars vcf | 208 |
 | Exact Matched SNPs | 1,879 |
 | Exact Matched INDELs | 40 |
 | True Positive (TP) | 1,919 |
@@ -246,7 +246,7 @@ In this scenario, the mapping step and the calling step will be different below.
 ```bash
 ./mars-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
 ```
-This will produce a file called `HG00096.fa`, which can be used in the next step to call the variants using `varfind-call.sh`.
+This will produce a file called `HG00096.fa`, which can be used in the next step to call the variants using `mars-call.sh`.
 
 ```bash
 ./mars-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
