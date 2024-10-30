@@ -212,7 +212,7 @@ If we need to consider the graph-based method as well, we have to prepare a refe
 ```
 This will produce `vg.vcf.gz`, its index file `vg.vcf.gz.tbi` and the graph file `vgindex.giraffe.gbz` with its other supporting files `vgindex.dist` and `vgindex.min`. 
 
-### 1. Executing the workflow (ngsngs -> bwa mem -> bcftools call)
+### 1. Executing the workflow (wgsim -> bwa mem -> bcftools call)
 First, we'll simulate the reading using the command `mars-reads.sh` with a read length of 100 and a coverage of 60.  
 
 ```bash
@@ -265,7 +265,7 @@ This command will produce the below report with all the stats.
 | Overall Specificity | 99.9834% |
 | Overall F1 Score | 87.1341% |
 
-### 2. Executing the graph-based workflow (ngsngs -> vg giraffe -> vg call)
+### 2. Executing the graph-based workflow (wgsim -> vg giraffe -> vg call)
 
 In this scenario, the mapping step and the calling step will be different below. 
 
@@ -312,4 +312,24 @@ It is possible to execute the above-discussed workflow using the command `mars-p
 ./mars-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
 #For the graph approach
 ./mars-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
+```
+
+### 4. Executing Workflow with NextFlow
+Refer to the file [example.nf](https://github.com/GenomicAI/mars/blob/main/nextflow/example.nf).
+
+```
+./mars-run.sh nextflow run example.nf
+
+ N E X T F L O W   ~  version 24.09.2-edge
+
+Launching `example.nf` [marvelous_euler] DSL2 - revision: 6ecd4b5d6a
+
+executor >  local (3)
+[7e/b63d83] process > SIMULATE_READS [100%] 1 of 1 ✔
+[91/98a530] process > ALIGN_READS    [100%] 1 of 1 ✔
+[10/b0a259] process > CALL_VARIANTS  [100%] 1 of 1 ✔
+Completed at: 30-Oct-2024 18:02:33
+Duration    : 2m 41s
+CPU hours   : (a few seconds)
+Succeeded   : 3
 ```
