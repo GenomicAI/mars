@@ -251,6 +251,31 @@ This will produce a file called `HG00096.fa`, which can be used in the next step
 ```bash
 ./mars-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
 ```
+```
+./mars-compare.sh -g HG00096.vcf.gz -v HG00096.mars.v.vcf.gz -f HG00096.fa
+```
 
-
+| Description | Stats |
+|:----------------------------------|-----------:|
+| Ground Truth SNPs | 1,886 |
+| Ground Truth INDELs | 271 |
+| mars SNPs | 1,577 |
+| mars INDELs | 267 |
+| SNPs Private to mars vcf | 9 |
+| INDELs Private to mars vcf | 26 |
+| Exact Matched SNPs | 1,568 |
+| Exact Matched INDELs | 241 |
+| True Positive (TP) | 1,809 |
+| False Positive (FP) | 35 |
+| True Negative (TN) | 1,997,520 |
+| False Negative (FN) | 348 |
+| SNP Sensitivity | 83.1389% |
+| SNP Specificity | 99.9995% |
+| SNP F1 Score | 90.5573% |
+| INDEL Sensitivity | 88.9298% |
+| INDEL Specificity | 99.9986% |
+| INDEL F1 Score | 89.5910% |
+| Overall Sensitivity | 83.8664% |
+| Overall Specificity | 99.9982% |
+| Overall F1 Score | 90.4273% |
 
