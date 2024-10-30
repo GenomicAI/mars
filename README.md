@@ -181,7 +181,8 @@ Usage: mars-pipe.sh [options]
  's' for 'bwa sampe (Pared ended read), bwa samse (Single ended read)',
  '2p' for 'minimap2 -ax map-pb', '2o' for 'minimap2 -ax map-ont', '2i' for 'minimap2 -ax map-iclr' (Single ended read only),
  'b' for 'bowtie2' and 'g' for 'vg giraffe'. (Default 'm')
--c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)
+-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes',
+ 'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)
 -t | --threads INT number of threads to use (Default 'nproc')
 -w | --write STR write logs to this file (optional, default 'mars.log')
 -h | --help Display this help message
@@ -215,7 +216,7 @@ This will produce `vg.vcf.gz`, its index file `vg.vcf.gz.tbi` and the graph file
 First, we'll simulate the reading using the command `mars-reads.sh` with a read length of 100 and a coverage of 60.  
 
 ```bash
-./mars-reads.sh -f HG00096.fa -s n -l 100 -d 60
+./mars-reads.sh -f HG00096.fa -s w -l 100 -d 60
 ```
 This will produce paired read files named `HG00096_reads_R1.fq.gz` and `HG00096_reads_R2.fq.gz`. 
 
@@ -244,25 +245,25 @@ This command will produce the below report with all the stats.
 |:----------------------------------|-----------:|
 | Ground Truth SNPs | 1,886 |
 | Ground Truth INDELs | 271 |
-| mars SNPs | 2,069 |
-| mars INDELs | 6 |
-| SNPs Private to mars vcf | 218 |
-| INDELs Private to mars vcf | 4 |
-| Exact Matched SNPs | 1,851 |
-| Exact Matched INDELs | 2 |
-| True Positive (TP) | 1,853 |
-| False Positive (FP) | 222 |
-| True Negative (TN) | 1,997,333 |
-| False Negative (FN) | 304 |
-| SNP Sensitivity | 98.1442% |
-| SNP Specificity | 99.9890% |
-| SNP F1 Score | 93.6030% |
-| INDEL Sensitivity | 0.7380% |
-| INDEL Specificity | 99.9997% |
-| INDEL F1 Score | 1.4440% |
-| Overall Sensitivity | 85.9063% |
-| Overall Specificity | 99.9888% |
-| Overall F1 Score | 87.5708% |
+| mars SNPs | 2,001 |
+| mars INDELs | 249 |
+| SNPs Private to mars vcf | 121 |
+| INDELs Private to mars vcf | 209 |
+| Exact Matched SNPs | 1,880 |
+| Exact Matched INDELs | 40 |
+| True Positive (TP) | 1,920 |
+| False Positive (FP) | 330 |
+| True Negative (TN) | 1,997,225 |
+| False Negative (FN) | 237 |
+| SNP Sensitivity | 99.6818% |
+| SNP Specificity | 99.9939% |
+| SNP F1 Score | 96.7326% |
+| INDEL Sensitivity | 14.7601% |
+| INDEL Specificity | 99.9895% |
+| INDEL F1 Score | 15.3846% |
+| Overall Sensitivity | 89.0125% |
+| Overall Specificity | 99.9834% |
+| Overall F1 Score | 87.1341% |
 
 ### 2. Executing the graph-based workflow (ngsngs -> vg giraffe -> vg call)
 
@@ -304,3 +305,11 @@ This will produce a file called `HG00096.fa`, which can be used in the next step
 | Overall Specificity | 99.9982% |
 | Overall F1 Score | 90.4273% |
 
+### 3. Executing the whole workflow using `mars-pipe.sh`
+It is possible to execute the above-discussed workflow using the command `mars-pipe.sh`. e.g:
+
+```
+./mars-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
+#For the graph approach
+./mars-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
+```
