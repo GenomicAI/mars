@@ -334,7 +334,8 @@ CPU hours   : (a few seconds)
 Succeeded   : 3
 ```
 
-## Building the Singulairty Image
+## Appendix
+### How to Build the Singulairty Image
 Refer to the singularity build definition file [mars.def](https://github.com/GenomicAI/mars/blob/main/singularity/mars.def). 
 ```
 sudo singularity build -F mars.sif mars.def
