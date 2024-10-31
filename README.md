@@ -38,7 +38,7 @@ Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars
 |1| [htslib, tabix, bgzip](https://github.com/samtools/htslib) |1.21|C library for high-throughput sequencing data formats|`./mars-run.sh tabix -h`, `./mars-run.sh bgzip -h`|
 |2| [SAMtools](https://github.com/samtools/samtools) |1.21|Tools (written in C using htslib) for manipulating next-generation sequencing data|`./mars-run.sh samtools version`|
 |3| [BCFtools](https://github.com/samtools/bcftools) |1.21|Utilities for variant calling and manipulating VCFs and BCFs.|`./mars-run.sh bcftools version`|
-|4| [bedtools](https://github.com/arq5x/bedtools2) |v2.31.1|The swiss army knife for genome arithmetic|`./mars-run.sh bedtools --version`|
+|4| [BEDtools](https://github.com/arq5x/bedtools2) |v2.31.1|The swiss army knife for genome arithmetic|`./mars-run.sh bedtools --version`|
 |5| [wgsim](https://github.com/lh3/wgsim) |1.21|Short read simulator|`./mars-run.sh wgsim -h`|
 |6| [ngsngs](https://github.com/RAHenriksen/NGSNGS) |v0.9.2.2|Next Generation Simulator for Next Generation Sequencing Data|`./mars-run.sh ngsngs -v`|
 |7| [bwa](https://github.com/lh3/bwa) |0.7.18-r1243-dirty|Burrow-Wheeler Aligner for short-read alignment|`./mars-run.sh bwa`|
