@@ -71,6 +71,17 @@ From: ubuntu:22.04
 	rm 1.21.zip
 	rm -rf bcftools-1.21
 
+	# Install bedtools
+	cd
+	wget https://github.com/arq5x/bedtools2/archive/refs/tags/v2.31.1.zip
+	unzip v2.31.1.zip
+	cd bedtools2-2.31.1
+	make
+	make install
+	cd
+	rm v2.31.1.zip
+	rm -rf bedtools2-2.31.1
+
 	# Install ngsngs
 	cd
 	git clone https://github.com/RAHenriksen/NGSNGS.git
@@ -193,7 +204,6 @@ From: ubuntu:22.04
 	cp ./GFAffix-0.1.5b_linux_x86_64/gfaffix /usr/local/bin
 	rm -rf ./GFAffix-0.1.5b_linux_x86_64
 	
-
 	#Install odgi
 	cd
 	git clone --recursive https://github.com/pangenome/odgi.git
