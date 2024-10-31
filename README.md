@@ -190,7 +190,6 @@ Usage: mars-pipe.sh [options]
  'b' for 'bowtie2' and 'g' for 'vg giraffe'. (Default 'm')
 -c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes',
  'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)
--y | --delly STR read simulation type, 's' for short read, 'p' for 'PacBio' and 'o' for 'ONT' (For delly only, Default 's')
 -t | --threads INT number of threads to use (Default 'nproc')
 -w | --write STR write logs to this file (optional, default 'mars.log')
 -h | --help Display this help message
