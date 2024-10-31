@@ -1,18 +1,21 @@
 # "mars"
 ### Simplifying Bioinformatics Workflows through a Containerized Approach to Tool Integration and Management
-In the rapidly evolving field of bioinformatics, numerous specialized tools have been developed for essential genomic analysis tasks, such as read simulation, mapping, and variant calling. However, the management of these tools often presents significant challenges due to varied dependencies, execution steps, and output formats, complicating the installation and configuration processes. To address these issues, we introduce "mars," a bioinformatics solution encapsulated within a Singularity container that pre-loads a comprehensive suite of widely used genomic tools. Mars not only simplifies the installation of these tools but also automates critical workflow functions, including sequence sample preparation, read simulation, read mapping, variant calling, and result comparison. By streamlining the execution of these workflows, mars enables users to easily manage input-output formats and compare results across different tools, thereby enhancing reproducibility and efficiency. Furthermore, by providing a cohesive environment that integrates tool management with a flexible workflow interface, mars empowers researchers to focus on their analyses rather than the complexities of tool configuration. This integrated solution facilitates the testing of various combinations of tools and algorithms, enabling users to evaluate performance based on different metrics and identify the optimal tools for their specific genomic analysis needs. Through mars, we aim to enhance the accessibility and usability of bioinformatics tools, ultimately advancing research in genomic analysis.
+In the rapidly advancing field of bioinformatics, numerous specialized tools have been developed for critical genomic analysis tasks such as read simulation, mapping, and variant calling. However, managing these tools often presents significant challenges due to varied dependencies, execution steps, and output formats, making installation and configuration complex. To address these issues, we introduce "mars," a bioinformatics solution packaged in a Singularity container that preloads a comprehensive suite of widely used genomic tools.
+
+Mars simplifies tool installation and automates key workflow functions, including sequence sample preparation, read simulation, read mapping, variant calling, and result comparison. By streamlining these workflows, mars enables users to easily manage input-output formats and compare results across different tools, enhancing reproducibility and efficiency. Additionally, by providing an integrated environment that combines tool management with a flexible workflow interface, mars empowers researchers to focus on analysis rather than tool configuration. This cohesive solution allows users to test different combinations of tools and algorithms, evaluate performance based on various metrics, and identify the best tools for their specific genomic analysis needs. Through mars, we aim to make bioinformatics tools more accessible and user-friendly, advancing research in genomic analysis.
 
 ## Installation
-Since "mars" run on a [singularity](https://sylabs.io/singularity/) container, first we need to install the singularity. This [guide](https://docs.sylabs.io/guides/main/user-guide/quick_start.html) will explain how to install singularity.
+Since "mars" runs on a [Singularity](https://sylabs.io/singularity/) container, you’ll need to install Singularity first. This guide explains how to install it.
 
-Then pull the "mars" image.
+Afterward, pull the "mars" image:
 ```
 singularity pull library://shanuz/genomicai/mars:latest
 ls -ltrh
 total 1.8G
 -rwxr-xr-x 1 shanika shanika 1.8G Oct 27 20:21 mars_latest.sif
 ```
-Copy all "mars' scripts from this [git](https://github.com/GenomicAI/mars/tree/main/scripts) to your environment. All the "mars" scripts assumes the `mars_latest.sif` is in the current folder or you can specify diffenet folder with env variable `MARSSIF`. Run the following command to see everything working fine. 
+Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars/tree/main/scripts)) to your environment. All "mars" scripts assume that `mars_latest.sif` is in the current directory, or you can specify a different directory with the environment variable `MARSSIF`. Run the following command to ensure everything is working:
+
 ```
 ./mars-run.sh cat /etc/os-release
   PRETTY_NAME="Ubuntu 22.04.5 LTS"
@@ -56,10 +59,10 @@ Copy all "mars' scripts from this [git](https://github.com/GenomicAI/mars/tree/m
 
 ## "mars" utilities
 #### `mars-run.sh`
-This works as a wrapper to run the command in the singulairy container. As explained in the above table, all the can executed through this. 
+This wrapper allows commands to be run within the Singularity container. Refer to the table above for examples of how each tool can be executed.
 
 #### `mars-reads.sh`
-All the read simulation tools can be executed through this utility in a convienient manner. However this supports limited number of options and you can use adbavced options through `mars-run.sh`.
+This utility allows the execution of read simulation tools in a streamlined way. Note that this script supports a limited set of options; for advanced options, use `mars-run.sh`.
 ```
 ./mars-reads.sh -h
 Program : mars-reads.sh
@@ -74,7 +77,8 @@ Usage: mars-reads.sh [options]
 ```
 
 #### `mars-map.sh`
-Most of the tools which are used for read mapping to the reference can be executed through this utility. For advanced options check the documentton of required tool and excute it through `mars-run.sh`.
+Most tools for mapping reads to reference sequences can be executed using this utility. For more options, consult the required tool’s documentation and execute it with `mars-run.sh`.
+
 ```
 ./mars-map.sh -h
 Program : mars-map.sh
@@ -95,7 +99,8 @@ Usage: mars-map.sh [options]
 ```
 
 #### `mars-call.sh`
-This utility will support to execute variant call tools in a convenient manner. However this also supports limited number of options and you can use adbavced options through `mars-run.sh` by reffering the documentations.
+This utility facilitates running variant-calling tools. It also supports limited options; use `mars-run.sh` for advanced options, following the tool’s documentation.
+
 ```
 ./mars-call.sh -h
 Program : mars-call.sh
@@ -112,7 +117,7 @@ Usage: mars-call.sh [options]
 ```
 
 #### `mars-compare.sh`
-This utility will compare 2 vcf files (ground truth vs mars generated) using `bcftools` and will produced comprehensive report on SNPs and INDELs. 
+This utility compares two VCF files (ground truth vs. mars-generated) using `bcftools` and produces a comprehensive report on SNPs and INDELs.
 ```
 ./mars-compare.sh -h
 Program : mars-compare.sh
@@ -126,7 +131,7 @@ Usage: mars-compare.sh [options]
 ```
 
 #### `mars-filter.sh`, `mars-prepare.sh` and `mars-graph.sh`
-These utilities are used for preparing input files for testing. A detailed example is decribed in the next section.
+These utilities help prepare input files for testing. Detailed examples are provided in the following section.
 ```
 ./mars-filter.sh -h
 Program : mars-filter.sh
@@ -164,7 +169,7 @@ Usage: mars-prepare.sh [options]
 ```
 
 #### `mars-pipe.sh`
-This utility will execte `mars-reads.sh`, `mars-map.sh` and `mars-call.sh` in a pipeline. 
+This utility exectes `mars-reads.sh`, `mars-map.sh` and `mars-call.sh` in a pipeline. 
 ```
 ./mars-pipe.sh -h
 Program : mars-pipe.sh
@@ -192,54 +197,54 @@ Usage: mars-pipe.sh [options]
 ## Example Using Genome assembly GRCh38.p14 Chromosome 20  
 ### Preparing Input files
 
-Here, we use reference [Genome assembly GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). Download it and get the file `GCF_000001405.40_GRCh38.p14_genomic.fna`. 
-Filtering the chromosome 20 can be done using the following command. 
+In this example, we use the reference [Genome assembly GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). Download the file `GCF_000001405.40_GRCh38.p14_genomic.fna`. To filter for chromosome 20, use the following command:
 
 ```bash
 ./mars-filter.sh -f GCF_000001405.40_GRCh38.p14_genomic.fna -n NC_000020.11 -r 20
 ```
-This will produce the files `NC_000020.11.fa` and `NC_000020.11.fa.fai`
-Next, we'll prepare a sequence file and a ground truth VCF file for a random sample (HG00096) of the [GRCh38](http://hgdownload.soe.ucsc.edu/gbdb/hg38/1000Genomes/ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz) VCF file. Download that file and use the below command. We'll restrict the example for the region 30000000-32000000
+This command produces the files `NC_000020.11.fa` and `NC_000020.11.fa.fai`.
+
+Next, prepare a sequence file and a ground truth VCF file for a sample (HG00096) from the [GRCh38](http://hgdownload.soe.ucsc.edu/gbdb/hg38/1000Genomes/ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz) VCF file. Download the file and use the command below, restricting the example to the region 30000000-32000000:
 
 ```bash
 ./mars-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
 ```
-This will produce the sequence file `HG00096.fa`, index `HG00096.fa.fai`, and the ground truth VCF file `HG00096.vcf.gz`.
-If we need to consider the graph-based method as well, we have to prepare a reference graph using the below command. Here, we use five or more random samples other than the selected sample for the analysis. 
+This command generates the sequence file `HG00096.fa`, its index `HG00096.fa.fai`, and the ground truth VCF file `HG00096.vcf.gz`.
+If using a graph-based method, prepare a reference graph with the following command. Here, select five or more random samples other than the sample chosen for analysis:
 
 ```bash
 ./mars-graph.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00097,HG00099,HG00100,HG00101,HG00102
 ```
-This will produce `vg.vcf.gz`, its index file `vg.vcf.gz.tbi` and the graph file `vgindex.giraffe.gbz` with its other supporting files `vgindex.dist` and `vgindex.min`. 
+This produces `vg.vcf.gz`, its index file `vg.vcf.gz.tbi`, and the graph file `vgindex.giraffe.gbz` with supporting files `vgindex.dist` and `vgindex.min`.
 
 ### 1. Executing the workflow (wgsim -> bwa mem -> bcftools call)
-First, we'll simulate the reading using the command `mars-reads.sh` with a read length of 100 and a coverage of 60.  
+First, simulate the reads using the `mars-reads.sh` command with a read length of 100 and a coverage of 60:
 
 ```bash
 ./mars-reads.sh -f HG00096.fa -s w -l 100 -d 60
 ```
-This will produce paired read files named `HG00096_reads_R1.fq.gz` and `HG00096_reads_R2.fq.gz`. 
+This command generates paired read files named `HG00096_reads_R1.fq.gz` and `HG00096_reads_R2.fq.gz`.
 
-The next step is to map the reads to the reference sequence using the command `mars-map.sh`
+Next, map the reads to the reference sequence using `mars-map.sh`:
 
 ```bash
 ./mars-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m m
 ```
-This will produce a bam file called `HG00096.bam`. 
+This produces a BAM file named `HG00096.bam`.
 
-Now we can do the variant calling using `mars-call.sh`. 
+Now, perform variant calling with `mars-call.sh`:
 
 ```bash
 ./mars-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
 ```
-This step will create a VCF file called `HG00096.mars.b.vcf.gz`. 
+This step generates a VCF file called `HG00096.mars.b.vcf.gz`.
 
-The final step is to compare the 2 VCF files `HG00096.mars.b.vcf.gz` and `HG00096.vcf.gz` using `mars-compare.sh`.
+Finally, compare the two VCF files (`HG00096.mars.b.vcf.gz` and `HG00096.vcf.gz`) using `mars-compare.sh`:
 
 ```bash
 ./mars-compare.sh -g HG00096.vcf.gz -v HG00096.mars.b.vcf.gz -f HG00096.fa
 ```
-This command will produce the below report with all the stats. 
+This command outputs a report with statistics:
 
 | Description | Stats |
 |:----------------------------------|-----------:|
@@ -267,16 +272,17 @@ This command will produce the below report with all the stats.
 
 ### 2. Executing the graph-based workflow (wgsim -> vg giraffe -> vg call)
 
-In this scenario, the mapping step and the calling step will be different below. 
+In the graph-based workflow, the mapping and calling steps differ. First, map the reads as follows:
 
 ```bash
 ./mars-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
 ```
-This will produce a file called `HG00096.fa`, which can be used in the next step to call the variants using `mars-call.sh`.
+This step produces a file `HG00096.fa`, which can be used in the next step to call variants using `mars-call.sh`:
 
 ```bash
 ./mars-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
 ```
+Finally, compare the results with:
 ```
 ./mars-compare.sh -g HG00096.vcf.gz -v HG00096.mars.v.vcf.gz -f HG00096.fa
 ```
@@ -305,8 +311,8 @@ This will produce a file called `HG00096.fa`, which can be used in the next step
 | Overall Specificity | 99.9982% |
 | Overall F1 Score | 90.4273% |
 
-### 3. Executing the whole workflow using `mars-pipe.sh`
-It is possible to execute the above-discussed workflow using the command `mars-pipe.sh`. e.g:
+### 3. Executing the Entire Workflow with `mars-pipe.sh`
+To run the complete workflow, use `mars-pipe.sh` as shown below:
 
 ```
 ./mars-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
@@ -315,7 +321,7 @@ It is possible to execute the above-discussed workflow using the command `mars-p
 ```
 
 ### 4. Executing Workflow with NextFlow
-Refer to the file [example.nf](https://github.com/GenomicAI/mars/blob/main/nextflow/example.nf).
+To run the workflow in NextFlow, refer to [example.nf](https://github.com/GenomicAI/mars/blob/main/nextflow/example.nf).
 
 ```
 ./mars-run.sh nextflow run example.nf
