@@ -1,1 +1,1 @@
-#### Structural Varient (SV) sample data for testing
+#### Structural Variant (SV) sample data for testing
