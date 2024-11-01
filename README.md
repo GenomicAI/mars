@@ -1,4 +1,4 @@
-# "mars"
+# "Mars"
 ### Simplifying Bioinformatics Workflows through a Containerized Approach to Tool Integration and Management
 In the rapidly advancing field of bioinformatics, numerous specialized tools have been developed for critical genomic analysis tasks such as read simulation, mapping, and variant calling. However, managing these tools often presents significant challenges due to varied dependencies, execution steps, and output formats, making installation and configuration complex. To address these issues, we introduce "mars," a bioinformatics solution packaged in a Singularity container that preloads a comprehensive suite of widely used genomic tools.
 
