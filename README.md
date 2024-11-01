@@ -355,7 +355,7 @@ less sample_sv.vcf.gz
 ```
 ./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -v sample_sv.vcf.gz -s p -m 2p -c d
 ```
-Output VCF file. It has been detected with a good accuracy. 
+Output VCF file with detected SV 
 ```
 less sample_sv.mars.d.vcf.gz
 ```
