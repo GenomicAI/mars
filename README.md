@@ -361,7 +361,7 @@ less sample_sv.mars.d.vcf.gz
 ```
 ![image](https://github.com/user-attachments/assets/d2bc253c-c6fa-4efb-931b-c87855561233)
 
-### Workflow (badread (INT) -> minimap2 -ax map-ont -> delly lr -y ont) 
+### Workflow (badread (ont) -> minimap2 -ax map-ont -> delly lr -y ont) 
 ```
 ./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -s b -m 2o -c d
 ```
