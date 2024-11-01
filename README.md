@@ -353,7 +353,7 @@ less sample_sv.vcf.gz
 
 #### Workflow (pbsim -> minimap2 -ax map-pb -> delly lr -y pb) 
 ```
-./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -v sample_sv.vcf.gz -s p -m 2p -c d
+./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -s p -m 2p -c d
 ```
 Output VCF file with detected SV 
 ```
@@ -361,7 +361,13 @@ less sample_sv.mars.d.vcf.gz
 ```
 ![image](https://github.com/user-attachments/assets/d2bc253c-c6fa-4efb-931b-c87855561233)
 
+### Workflow (badread (INT) -> minimap2 -ax map-ont -> delly lr -y ont) 
+```
+./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -s b -m 2o -c d
+```
+Output VCF file with detected SV
 
+![image](https://github.com/user-attachments/assets/3d7d4929-e31f-4019-ab0d-9b5c8ea3934d)
 
 ## Appendix
 ### How to Build the Singulairty Image
