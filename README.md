@@ -342,6 +342,27 @@ CPU hours   : (a few seconds)
 Succeeded   : 3
 ```
 
+## Structural Variant (SV) Detection Workflow.
+For this experiment please use the data available in [svdata](/svdata/) folder. 
+
+Ground truth VCF file with only one SV. 
+```
+less sample_sv.vcf.gz
+```
+![image](https://github.com/user-attachments/assets/1c6e77b5-9f88-4c1f-8d89-acfd63191652)
+
+#### Workflow (pbsim -> minimap2 -ax map-pb -> delly lr -y pb) 
+```
+./mars-pipe.sh -r NC_000020.11.fa -f sample_sv.fa -v sample_sv.vcf.gz -s p -m 2p -c d
+```
+Output VCF file. It has been detected with a good accuracy. 
+```
+less sample_sv.mars.d.vcf.gz
+```
+![image](https://github.com/user-attachments/assets/d2bc253c-c6fa-4efb-931b-c87855561233)
+
+
+
 ## Appendix
 ### How to Build the Singulairty Image
 Refer to the singularity build definition file [mars.def](https://github.com/GenomicAI/mars/blob/main/singularity/mars.def). 
