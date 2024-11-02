@@ -39,7 +39,7 @@ Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars
 |2| [SAMtools](https://github.com/samtools/samtools) |1.21|Tools (written in C using htslib) for manipulating next-generation sequencing data|`./mars-run.sh samtools version`|
 |3| [BCFtools](https://github.com/samtools/bcftools) |1.21|Utilities for variant calling and manipulating VCFs and BCFs.|`./mars-run.sh bcftools version`|
 |4| [BEDtools](https://github.com/arq5x/bedtools2) |v2.31.1|The swiss army knife for genome arithmetic|`./mars-run.sh bedtools --version`|
-|5| [wgsim](https://github.com/lh3/wgsim) |1.21|Short read simulator|`./mars-run.sh wgsim -h`|
+|5| [wgsim](https://github.com/samtools/samtools/tree/defc2af09381e41a6e859e10731719f48011d7af/misc) |1.21|Short read simulator|`./mars-run.sh wgsim -h`|
 |6| [ngsngs](https://github.com/RAHenriksen/NGSNGS) |v0.9.2.2|Next Generation Simulator for Next Generation Sequencing Data|`./mars-run.sh ngsngs -v`|
 |7| [bwa](https://github.com/lh3/bwa) |0.7.18-r1243-dirty|Burrow-Wheeler Aligner for short-read alignment|`./mars-run.sh bwa`|
 |8| [bowtie2](https://github.com/BenLangmead/bowtie2)|2.5.4|A fast and sensitive gapped read aligner|`./mars-run.sh bowtie2 --version`|
