@@ -370,7 +370,7 @@ Output VCF file with detected SV
 ![image](https://github.com/user-attachments/assets/3d7d4929-e31f-4019-ab0d-9b5c8ea3934d)
 
 ## Appendix
-### How to Build the Singulairty Image
+### How to Build the Singulairty Container
 Refer to the singularity build definition file [mars.def](https://github.com/GenomicAI/mars/blob/main/singularity/mars.def). 
 ```
 sudo singularity build -F mars.sif mars.def
