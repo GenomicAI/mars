@@ -6,8 +6,8 @@
 # ./mars-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c b -t 48
 # ./mars-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
 
-SHORT=r:,f:,v:,l:,d:,s:,m:,c:,i:,t:,w:,h
-LONG=ref:,file:,vcf:,length:,depth:,sim:,mapper:,caller:,image:,threads:,write:,help
+SHORT=r:,f:,v:,l:,d:,s:,m:,c:,t:,w:,h
+LONG=ref:,file:,vcf:,length:,depth:,sim:,mapper:,caller:,threads:,write:,help
 OPTS=$(getopt -a -n mars-pipe.sh --options $SHORT --longoptions $LONG -- "$@")
 
 help_text="Usage: mars-pipe.sh [options]\n"
@@ -16,13 +16,14 @@ help_text+="-f | --file STR .fasta file of the sample considered\n"
 help_text+="-v | --vcf STR Ground truth vcf file of the sample considered\n"
 help_text+="-l | --length INT read length (Default 100)\n"
 help_text+="-d | --depth INT read coverage depth (Default 30)\n"
-help_text+="-s | --sim STR read simulator. 'n' for NGSNGS, 'w' for wgsim,'p' pbsim and 'b' for badread (Default 'n')\n"
+help_text+="-s | --sim STR read simulator. 'n' for 'NGSNGS', 'w' for 'wgsim','p' 'pbsim' and 'b' for badread (Default 'n')\n"
 help_text+="-m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', '2' for 'minimap2',\n
 'mp' for 'bwa mem -x pacbio', 'mo' for 'bwa mem -x ont2d' (For single ended reads only),\n
 's' for 'bwa sampe (Pared ended read), bwa samse (Single ended read)',\n
 '2p' for 'minimap2 -ax map-pb', '2o' for 'minimap2 -ax map-ont', '2i' for 'minimap2 -ax map-iclr'  (Single ended read only),\n
 'b' for 'bowtie2' and 'g' for 'vg giraffe'. (Default 'm')\n"
-help_text+="-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)\n"
+help_text+="-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes',\n
+'g' for 'gatk HaplotypeCaller', 'd' for 'delly' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)\n"
 help_text+="-t | --threads INT number of threads to use (Default 'nproc')\n"
 help_text+="-w | --write STR write logs to this file (optional, default 'mars.log')\n"
 help_text+="-h | --help Display this help message\n"
@@ -61,10 +62,6 @@ do
         ;;
         -c | --caller )
             caller="$2"
-            shift 2
-        ;;
-        -i | --image )
-            image="$2"
             shift 2
         ;;
         -t | --threads )
@@ -135,16 +132,10 @@ if [ -z "$file" ] || [ ! -f "$file" ]; then
     exit 1;
 fi
 
-mlog ">>> Checking for ground truth vcf file ..."
-if [ -z "$vcf" ] || [ ! -f "$vcf" ]; then
-    mlog "The ground truth .vcf file ${vcf} does not exists or not specified by -v|--vcf <filename> !"
-    echo -e $help_text
-    exit 1;
-fi
-
-if [ ! -z "$image" ] ; then
-    if [ ! -f "$image" ]; then
-        mlog "The singulairty image file ${image} does not exists !"
+if [ $caller != "d" ]; then # We don't compare for delly SV output
+    mlog ">>> Checking for ground truth vcf file ..."
+    if [ -z "$vcf" ] || [ ! -f "$vcf" ]; then
+        mlog "The ground truth .vcf file ${vcf} does not exists or not specified by -v|--vcf <filename> !"
         echo -e $help_text
         exit 1;
     fi
@@ -210,7 +201,7 @@ prefix=${file%.*}
 "${sp}/mars-reads.sh" -f $file -s $sim -l $length -d $depth -w $write
 sleep 2;
 if [ ${ref##*.} == "gbz" ]; then
-    if [ [ $sim == 'p' ] ] || [ [ $sim == 'b' ] ]; then # We have single ended reading here.
+    if [ $sim == "p" ] || [ $sim == "b" ]; then # We have single ended reading here.
         "${sp}/mars-map.sh" -g $ref -1 "${prefix}_long_reads.fq.gz" -t $threads -m $mapper -w $write
     else
         "${sp}/mars-map.sh" -g $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper -w $write
@@ -218,16 +209,29 @@ if [ ${ref##*.} == "gbz" ]; then
     sleep 3;
     "${sp}/mars-call.sh" -g $ref -m "${prefix}.gam" -c $caller -t $threads -w $write
 else
-    if [ [ $sim == 'p' ] ] || [ [ $sim == 'b' ] ]; then # We have single ended reading here.
+    if [ $sim == "p" ] || [ $sim == "b" ]; then # We have single ended reading here.
         "${sp}/mars-map.sh" -f $ref -1 "${prefix}_long_reads.fq.gz" -t $threads -m $mapper -w $write
     else
         "${sp}/mars-map.sh" -f $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper -w $write
     fi
     sleep 2;
-    "${sp}/mars-call.sh" -f $ref -m "${prefix}.bam" -c $caller -t $threads -w $write
+    if [ $caller == "d" ]; then
+        if [ $sim == "p" ]; then
+            delly="p";
+        elif [ $sim == "b" ]; then
+            delly="o";
+        else 
+            delly="s";
+        fi
+        "${sp}/mars-call.sh" -f $ref -m "${prefix}.bam" -c $caller -y $delly -t $threads -w $write
+    else
+        "${sp}/mars-call.sh" -f $ref -m "${prefix}.bam" -c $caller -t $threads -w $write
+    fi
 fi
 sleep 2;
-"${sp}/mars-compare.sh" -g $vcf -v "${prefix}.mars.${caller}.vcf.gz" -f $file -w $write
+if [ $caller != "d" ]; then # We don't compare for delly SV output
+    "${sp}/mars-compare.sh" -g $vcf -v "${prefix}.mars.${caller}.vcf.gz" -f $file -w $write
+fi
 #Pipe END
 end=`date +%s`
 runtime=$(($end-$start))

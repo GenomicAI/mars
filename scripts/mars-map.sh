@@ -97,7 +97,7 @@ mlog " "
 #Get Date
 d=$(date)
 
-mlog ">>> Starting mars-reads workflow on ${d} ..."
+mlog ">>> Starting mars-map workflow on ${d} ..."
 mlog ">>> Checking for mars_latest.sif ..."
 if [ -z "$MARSSIF" ] ; then
     sif="${pwd}/mars_latest.sif"
@@ -114,8 +114,6 @@ fi
 if [ -z $mapper ]; then
     mapper="m";
 fi
-
-mlog ">>> Starting mars-map workflow on ${d} ..."
 
 if [[ $mapper == 'g' ]] ; then
     mlog "Mapper is 'vg giraffe'"
@@ -231,7 +229,7 @@ else
         mlog ">>> Aligning reads to the graph \"$(basename $gbz)\" using \"vg giraffe\"";
         singularity exec -e -B ${pwd} $sif vg giraffe -t $threads -Z $gbz -D 150 --fragment-mean 150 --fragment-stdev 0 -f "${read1}" > "${pwd}/${prefix}.gam"
     else
-        mlog "Unknown option \"${mapper}\" for --mapper!"
+        mlog "Invalid option \"${mapper}\" for --mapper!"
         echo -e $help_text
         exit 1;
     fi
