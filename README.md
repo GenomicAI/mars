@@ -275,7 +275,7 @@ This command outputs a report with statistics:
 | Overall Specificity | 99.9834% |
 | Overall F1 Score | 87.1341% |
 
-![linear-mapping](https://github.com/user-attachments/assets/44d921c1-ada9-47fd-a9a3-a64fb409323e)
+![linear-mapping](https://github.com/user-attachments/assets/2146c553-34f5-4055-a984-941163ed46ae)
 
 
 ### 2. Executing the graph-based workflow (wgsim -> vg giraffe -> vg call)
@@ -319,8 +319,7 @@ Finally, compare the results with:
 | Overall Specificity | 99.9982% |
 | Overall F1 Score | 90.4273% |
 
-![graph-mapping](https://github.com/user-attachments/assets/4bd86c4f-bade-4abc-92fe-8eed701faffc)
-
+![graph-mapping](https://github.com/user-attachments/assets/74a11bb9-49da-4b68-a668-b4dfd9c5a29c)
 
 ### 3. Executing the Entire Workflow with `mars-pipe.sh`
 To run the complete workflow, use `mars-pipe.sh` as shown below:
