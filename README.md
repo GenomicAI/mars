@@ -195,6 +195,8 @@ Usage: mars-pipe.sh [options]
 -h | --help Display this help message
 ```
 
+![mars-tools](https://github.com/user-attachments/assets/403fdbf9-0e94-4c25-bd58-f94b8f5ee70d)
+
 ------
 ## Example Using Genome assembly GRCh38.p14 Chromosome 20  
 ### Preparing Input files
