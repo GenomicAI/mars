@@ -272,6 +272,9 @@ This command outputs a report with statistics:
 | Overall Specificity | 99.9834% |
 | Overall F1 Score | 87.1341% |
 
+![linear-mapping](https://github.com/user-attachments/assets/44d921c1-ada9-47fd-a9a3-a64fb409323e)
+
+
 ### 2. Executing the graph-based workflow (wgsim -> vg giraffe -> vg call)
 
 In the graph-based workflow, the mapping and calling steps differ. First, map the reads as follows:
@@ -312,6 +315,9 @@ Finally, compare the results with:
 | Overall Sensitivity | 83.8664% |
 | Overall Specificity | 99.9982% |
 | Overall F1 Score | 90.4273% |
+
+![graph-mapping](https://github.com/user-attachments/assets/4bd86c4f-bade-4abc-92fe-8eed701faffc)
+
 
 ### 3. Executing the Entire Workflow with `mars-pipe.sh`
 To run the complete workflow, use `mars-pipe.sh` as shown below:
