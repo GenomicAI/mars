@@ -1,0 +1,313 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%labels
+	Author Shanika Amarasoma & Nuzla Ismail 
+    	Version v1.0
+    	Description "Singularity image with bioinformatics tools installed."
+
+%post
+	# Set environment variables to avoid tzdata prompts
+    export DEBIAN_FRONTEND=noninteractive
+    export TZ=Etc/UTC  # Or your desired timezone
+
+	# Update and install dependencies
+    apt-get update && apt-get install -y \
+    build-essential \
+	tzdata \
+	git \
+	wget \
+    curl \
+	python3 \
+	python3-dev \
+	python3-distutils \
+	python3-pip \
+    libz-dev \
+	liblzma-dev \
+	libbz2-dev \
+	default-jre \
+	unzip \
+	python-is-python3 \
+	libvcflib-dev \
+	cmake \
+	libseqlib-dev \
+	libncurses5-dev libncursesw5-dev \
+	openjdk-17-jre \
+	libvcflib-dev \
+	pybind11-dev \
+	libvcflib-tools vcftools \
+	pigz
+
+	#openjdk-17-jdk pkg-config \
+	#pybind11-dev \
+
+	#libwfa2
+	cd
+	wget http://us.archive.ubuntu.com/ubuntu/pool/universe/libw/libwfa2/libwfa2-dev_2.3.3-4_amd64.deb
+	wget http://us.archive.ubuntu.com/ubuntu/pool/universe/libw/libwfa2/libwfa2-0_2.3.3-4_amd64.deb
+	dpkg -i libwfa2-dev_2.3.3-4_amd64.deb libwfa2-0_2.3.3-4_amd64.deb
+	rm *.deb
+
+	# Configure timezone
+    	ln -fs /usr/share/zoneinfo/$TZ /etc/localtime
+    	dpkg-reconfigure -f noninteractive tzdata 
+
+	# Install htslib, tabix, bgzip, samtools, bcftools and wgsim
+	cd
+	git clone https://github.com/samtools/htslib.git
+	cd htslib
+	git submodule update --init --recursive
+	make
+	make install
+	cd
+	wget https://github.com/samtools/samtools/archive/refs/tags/1.21.zip
+	unzip 1.21.zip
+	cd samtools-1.21
+	make HTSSRC=../htslib;
+	make install
+
+	cd
+	rm -rf samtools-1.21
+	rm 1.21.zip
+	wget https://github.com/samtools/bcftools/archive/refs/tags/1.21.zip
+	unzip 1.21.zip
+	cd bcftools-1.21
+	make HTSSRC=../htslib;
+	make install
+	cd 
+	rm 1.21.zip
+	rm -rf bcftools-1.21
+
+	# Install bedtools
+	cd
+	wget https://github.com/arq5x/bedtools2/archive/refs/tags/v2.31.1.zip
+	unzip v2.31.1.zip
+	cd bedtools2-2.31.1
+	make
+	make install
+	cd
+	rm v2.31.1.zip
+	rm -rf bedtools2-2.31.1
+
+	# Install ngsngs
+	cd
+	git clone https://github.com/RAHenriksen/NGSNGS.git
+	#git clone https://github.com/samtools/htslib.git
+	#cd htslib
+	#git submodule update --init --recursive
+	#make
+	cd NGSNGS; make HTSSRC=../htslib; cp ngsngs /usr/local/bin;
+	cd
+	rm -rf NGSNGS htslib 
+
+	#Install bwa
+	cd
+	git clone https://github.com/lh3/bwa.git
+	cd bwa; make ; cp bwa /usr/local/bin
+	cd
+	rm -rf bwa
+
+	#Install bowtie2
+	cd
+	git clone https://github.com/BenLangmead/bowtie2.git
+	cd bowtie2
+	make; make install;
+	cd
+	rm -rf bowtie2
+
+	#Install freebayes
+	#cd
+	apt-get install -y bc parallel meson ninja-build
+	wget https://github.com/freebayes/freebayes/archive/refs/tags/v1.3.6.zip
+	unzip v1.3.6.zip 
+	cd freebayes-1.3.6
+	meson setup build/ --buildtype release
+	cd build
+	ninja
+	cp freebayes /usr/local/bin
+	cd
+	rm v1.3.6.zip
+	rm -rf freebayes-1.3.6
+
+	#Install vg
+	cd
+	wget https://github.com/vgteam/vg/releases/download/v1.60.0/vg
+	mv vg /usr/local/bin
+	chmod 755 /usr/local/bin/vg
+
+	#Install gatk
+	cd
+	wget https://github.com/broadinstitute/gatk/releases/download/4.6.0.0/gatk-4.6.0.0.zip
+	unzip gatk-4.6.0.0.zip
+	mv gatk-4.6.0.0 /opt/gatk
+	cd
+	rm gatk-4.6.0.0.zip
+
+	#Install Deep
+  	#Please use singularity image
+
+	#Install pbsim
+	cd
+	wget https://github.com/yukiteruono/pbsim3/archive/refs/tags/v3.0.4.zip
+	unzip v3.0.4.zip
+	cd pbsim3-3.0.4/
+	./configure
+	make
+	make install
+	cd
+	rm v3.0.4.zip
+	mkdir /opt/pbsim3
+	cp -r pbsim3-3.0.4/data /opt/pbsim3/
+	cp -r pbsim3-3.0.4/sample /opt/pbsim3/
+	rm -rf pbsim3-3.0.4
+
+	#Install minimap2
+	cd
+	wget https://github.com/lh3/minimap2/archive/refs/tags/v2.28.zip
+	unzip v2.28.zip
+	cd minimap2-2.28/
+	make
+	cp minimap2 /usr/local/bin
+	cd
+	rm v2.28.zip
+	rm -rf minimap2-2.28
+
+	#Install wfmash
+	cd
+	apt-get install -y gsl-bin libgsl-dev libgsl27 libgslcblas0
+	wget https://github.com/waveygang/wfmash/archive/refs/tags/v0.21.0.zip
+	unzip v0.21.0.zip
+	cd wfmash-0.21.0/
+	cmake -H. -Bbuild && cmake --build build -- -j 8
+	cmake --install build
+	cd
+	rm v0.21.0.zip
+	rm -rf wfmash-0.21.0
+
+	#Install seqwish
+	cd
+	apt install -y libjemalloc-dev
+	git clone --recursive https://github.com/ekg/seqwish.git
+	cd seqwish
+	cmake -H. -Bbuild && cmake --build build -- -j 3
+	cmake --install build
+	cd
+	rm -rf seqwish
+
+	#Install smoothxg
+	cd
+	apt-get install -y libatomic-ops-dev zlib1g-dev libzstd-dev
+	git clone --recursive https://github.com/pangenome/smoothxg.git
+	cd smoothxg
+	cmake -H. -Bbuild && cmake --build build -- -j 4
+	cmake --install build
+	cd
+	rm -rf smoothxg
+
+	#Install gfaffix
+	cd
+	wget --no-check-certificate -c https://github.com/marschall-lab/GFAffix/releases/download/0.1.5b/GFAffix-0.1.5b_linux_x86_64.tar.gz
+	tar -xzvf GFAffix-0.1.5b_linux_x86_64.tar.gz
+	cp ./GFAffix-0.1.5b_linux_x86_64/gfaffix /usr/local/bin
+	rm -rf ./GFAffix-0.1.5b_linux_x86_64
+	
+
+	#Install odgi
+	cd
+	git clone --recursive https://github.com/pangenome/odgi.git
+	cd odgi
+	cmake -H. -Bbuild && cmake --build build -- -j 8
+	cmake --install build
+	cd
+	rm -rf odgi
+
+	#Install badread 
+	cd
+	git clone https://github.com/rrwick/Badread.git
+	pip3 install ./Badread
+	rm -rf Badread
+
+	#Install delly
+	cd
+	wget https://github.com/dellytools/delly/releases/download/v1.2.9/delly_v1.2.9_linux_x86_64bit
+	mv delly_v1.2.9_linux_x86_64bit /usr/local/bin/delly
+	chmod 755 /usr/local/bin/delly
+
+	#Install diamond https://github.com/bbuchfink/diamond
+	cd
+	wget https://github.com/bbuchfink/diamond/releases/download/v2.1.9/diamond-linux64.tar.gz
+	tar -xvf diamond-linux64.tar.gz
+	mv diamond /usr/local/bin
+	chmod 755 /usr/local/bin/diamond
+	rm diamond-linux64.tar.gz
+
+	#Install nextflow
+	wget https://github.com/nextflow-io/nextflow/releases/download/v24.09.2-edge/nextflow
+	mv nextflow /usr/local/bin
+	chmod 755 /usr/local/bin/nextflow
+
+	# pggb related packages
+	# Rust
+	curl https://sh.rustup.rs -sSf | sh -s -- -y
+	PATH="/root/.cargo/bin:${PATH}"
+	cargo --help
+
+	#install MultiQC
+	pip install multiqc
+
+	#Install vcfbub
+	cd
+	wget https://github.com/pangenome/vcfbub/releases/download/v0.1.1/vcfbub
+	mv vcfbub /usr/local/bin
+	chmod 755 /usr/local/bin/vcfbub
+
+	#vcfwave
+	cd
+	git clone --recursive https://github.com/vcflib/vcflib.git
+    cd vcflib 
+    git checkout 0272f2d8ebcb70ca9b7f23a0aed3991e0a63ae6b 
+    mkdir -p build 
+    cd build 
+    cmake -DZIG=OFF -DCMAKE_BUILD_TYPE=Debug -DWFA_GITMODULE=ON .. && cmake --build . -- -j $(nproc) 
+    mv vcfwave /usr/local/bin/vcfwave 
+    mv vcfuniq /usr/local/bin/vcfuniq 
+    cd ../ 
+    rm -rf vcflib
+
+	# Additional tools
+	git clone https://github.com/ekg/fastix.git
+    cd fastix
+    git pull
+    git checkout 331c1159ea16625ee79d1a82522e800c99206834
+    cargo install --force --path .
+    mv /root/.cargo/bin/fastix /usr/local/bin/fastix
+    cd ../
+    rm -rf fastix
+
+	git clone https://github.com/ekg/pafplot.git
+    cd pafplot
+    git pull
+    git checkout 7dda24c0aeba8556b600d53d748ae3103ec85501
+    cargo install --force --path .
+    mv /root/.cargo/bin/pafplot /usr/local/bin/
+    cd ../
+    rm -rf pafplot
+	rm -rf .cargo
+
+	#pggb
+	wget https://github.com/pangenome/pggb/archive/refs/tags/v0.7.2.zip
+	unzip v0.7.2.zip
+	cp pggb-0.7.2/pggb /usr/local/bin/
+	chmod 755 /usr/local/bin/pggb
+	rm -rf pggb-0.7.2 v0.7.2.zip
+
+	# Cleanup unnecessary files
+    apt-get clean
+	apt-get purge
+	rm -rf /var/lib/apt/lists/*
+
+%environment
+    export PATH=/usr/local/bin:/opt/gatk:$PATH
+
+%runscript
+    echo "Singularity container with bioinformatics tools installed."
