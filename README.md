@@ -9,10 +9,10 @@ Since "mars" runs on a [Singularity](https://sylabs.io/singularity/) container, 
 
 Afterward, pull the "mars" image:
 ```
-singularity pull library://shanuz/genomicai/mars:latest
+singularity pull --arch amd64 library://shanuz/genomicai/mars:v1.0.0
 ls -ltrh
 total 1.8G
--rwxr-xr-x 1 shanika shanika 1.8G Oct 27 20:21 mars_latest.sif
+-rwxr-xr-x 1 shanika shanika 2.0G Nov 25 21:03 mars_v1.0.0.sif
 ```
 Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars/tree/main/scripts)) to your environment. All "mars" scripts assume that `mars_latest.sif` is in the current directory, or you can specify a different directory with the environment variable `MARSSIF`. Run the following command to ensure everything is working:
 
@@ -32,7 +32,7 @@ Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars
   UBUNTU_CODENAME=jammy
 ```
 
-## Available tools in "mars"
+## Available tools in "mars" V1.0.0 (2GB sif) 
 |#|Tool|Version|Description|Execute|
 |-:|----|-------|-----------|-------|
 |1| [htslib, tabix, bgzip](https://github.com/samtools/htslib) |1.21|C library for high-throughput sequencing data formats|`./mars-run.sh tabix -h`, `./mars-run.sh bgzip -h`|
@@ -57,6 +57,12 @@ Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars
 |20| [delly](https://github.com/dellytools/delly)|1.2.9|Structural variant discovery by integrated paired-end and split-read analysis|`./mars-run.sh delly`|
 |21| [diamond](https://github.com/bbuchfink/diamond)|v2.1.9.163|A sequence aligner for protein and translated DNA searches|`./mars-run.sh diamond help`|
 |22| [nextflow](https://github.com/nextflow-io/nextflow)|24.09.2-edge|A workflow system for creating scalable, portable, and reproducible workflows|`./mars-run.sh nextflow info`|
+
+## Tool added in "mars" V1.1.0 (2.6GB sif) 
+|#|Tool|Version|Description|Execute|
+|-:|----|-------|-----------|-------|
+|23| [multiqc](https://github.com/MultiQC/MultiQC) |1.25.2|Aggregate results from bioinformatics analyses across many samples into a single report.|`./mars-run.sh mutiqc --version`|
+|24| [pggb](https://github.com/pangenome/pggb) |v0.7.2|Pangenome graph builder|`./mars-run.sh pggb --version`|
 
 ## "mars" utilities
 #### `mars-run.sh`
