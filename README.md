@@ -58,11 +58,12 @@ Copy all "mars" scripts from the [repository]((https://github.com/GenomicAI/mars
 |21| [diamond](https://github.com/bbuchfink/diamond)|v2.1.9.163|A sequence aligner for protein and translated DNA searches|`./mars-run.sh diamond help`|
 |22| [nextflow](https://github.com/nextflow-io/nextflow)|24.09.2-edge|A workflow system for creating scalable, portable, and reproducible workflows|`./mars-run.sh nextflow info`|
 
-## Tool added in "mars" V1.1.0 (2.6GB sif) 
+<!-- ## Tool added in "mars" V1.1.0 (2.6GB sif) 
 |#|Tool|Version|Description|Execute|
 |-:|----|-------|-----------|-------|
 |23| [multiqc](https://github.com/MultiQC/MultiQC) |1.25.2|Aggregate results from bioinformatics analyses across many samples into a single report.|`./mars-run.sh mutiqc --version`|
 |24| [pggb](https://github.com/pangenome/pggb) |v0.7.2|Pangenome graph builder|`./mars-run.sh pggb --version`|
+-->
 
 ## "mars" utilities
 #### `mars-run.sh`
