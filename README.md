@@ -386,7 +386,7 @@ Output VCF file with detected SV
 
 ## Appendix
 ### How to Build the Singulairty Container
-Refer to the singularity build definition file [mars.def](https://github.com/GenomicAI/mars/blob/main/singularity/mars.def). 
+Refer to the singularity build definition file [mars.def](https://github.com/GenomicAI/mars/blob/main/singularity/mars_v1.0.0.def). 
 ```
 sudo singularity build -F mars.sif mars.def
 ```
