@@ -390,4 +390,25 @@ Refer to the singularity build definition file [mars.def](https://github.com/Gen
 ```
 sudo singularity build -F mars.sif mars.def
 ```
+## Citation
+[https://doi.org/10.1093/bioadv/vbaf074](https://doi.org/10.1093/bioadv/vbaf074)
+```
+@article{10.1093/bioadv/vbaf074,
+    author = {Ismail, Fathima Nuzla and Amarasoma, Shanika},
+    title = {Mars: simplifying bioinformatics workflows through a containerized approach to tool integration and management},
+    journal = {Bioinformatics Advances},
+    volume = {5},
+    number = {1},
+    pages = {vbaf074},
+    year = {2025},
+    month = {04},
+    issn = {2635-0041},
+    doi = {10.1093/bioadv/vbaf074},
+    url = {https://doi.org/10.1093/bioadv/vbaf074},
+    eprint = {https://academic.oup.com/bioinformaticsadvances/article-pdf/5/1/vbaf074/62871646/vbaf074.pdf},
+}
 
+
+
+
+```
